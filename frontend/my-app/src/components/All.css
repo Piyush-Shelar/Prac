@@ -1,0 +1,25 @@
+.login{
+
+    display:grid;
+    grid-template-rows:repeat(2,auto);
+    gap:100px
+}
+.new
+{
+    display:grid;
+    grid-template-rows:repeat(4,auto);
+    gap:20px
+}
+.navbar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;         /* full height */
+  width: 100px;          /* fixed width */
+  background-color:powderblue; /* dark gray */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+}
