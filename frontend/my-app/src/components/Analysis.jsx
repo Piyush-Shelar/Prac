@@ -2,6 +2,7 @@ import React,{useState,useEffect,useContext} from "react"
 import Navbar from "./Navbar"
 import {StockContext,SalesContext} from "./AppContext"
 import axios from "axios"
+import { PieChart, Pie, Cell, Tooltip, Legend ,ResponsiveContainer,} from "recharts";
 
 function Analysis()
 {
@@ -12,6 +13,7 @@ function Analysis()
    const [initstock,setInitstock]=useState([])
     const[filter,setFilter]=useState("all")
     const [days,setDays]=useState("")
+    const [view,setView]=useState("")
 
    useEffect(()=>{axios.get("http://localhost:9000/sales")
    .then((res)=>{
@@ -34,6 +36,7 @@ function Analysis()
 
 
 function filterByDate(saleDate) {
+   if (!days) return true;
   const today = new Date();
   const d = new Date(saleDate);
 
@@ -105,19 +108,102 @@ const groupedSales = filteredSales.reduce((acc, item) => {
    const totalsales=groupedSales1.reduce((acc,item)=>acc+item.totalCost,0)
    const grossprofit=totalsales-invested
 
+
+   const investedSalesData = [
+    { name: "Invested", value: invested },
+    { name: "Sales", value: totalsales },
+  ];
+
+  const profitData = [
+    { name: "Margin Profit", value: marginprofit },
+    { name: "Gross Profit", value: grossprofit },
+  ];
+
+  const COLORS = ["#0088FE", "#FF8042", "#00C49F", "#FFBB28"];
+
    
 
    return(
       <div>
       <Navbar/>
-     <label>Amount Invested</label>
-    <div><p><strong>Rs.</strong>{invested}</p></div>
+    
+     <div className="flex gap-2 mb-4">
+        <button
+          onClick={() => setView("list")}
+          className={`px-4 py-2 rounded-lg ${
+            view === "list" ? "bg-blue-500 text-white" : "bg-gray-200"
+          }`}
+        >
+          Default View
+        </button>
+        <button
+          onClick={() => setView("chart")}
+          className={`px-4 py-2 rounded-lg ${
+            view === "chart" ? "bg-blue-500 text-white" : "bg-gray-200"
+          }`}
+        >
+          Pie Chart
+        </button>
+      </div>
+     
+      {view === "list" && (
+        <div className="flex flex-col gap-4">
+
+          <label>Amount Invested</label>
+       <div><p><strong>Rs.</strong>{invested}</p></div>
     <label>Sales done</label>
     <div><p><strong>Rs.</strong>{totalsales}</p></div>
     <label>Margin Profit </label>
     <div><p><strong>Rs.</strong>{marginprofit}</p></div>
     <label>Gross Profit</label>
     <div><p><strong>Rs.</strong>{grossprofit}</p></div>
+
+    </div>)}
+
+
+      {view === "chart" && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Invested vs Sales */}
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie
+                data={investedSalesData}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                outerRadius={120}
+                dataKey="value"
+              >
+                {investedSalesData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index]} />
+                ))}
+              </Pie>
+              <Tooltip />
+              <Legend />
+            </PieChart>
+          </ResponsiveContainer>
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie
+                data={profitData}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                outerRadius={120}
+                dataKey="value"
+              >
+                {profitData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index + 2]} />
+                ))}
+              </Pie>
+              <Tooltip />
+              <Legend />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+      )}
+
+
 
    <div>
     <form>

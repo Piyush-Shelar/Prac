@@ -10,6 +10,20 @@
     grid-template-rows:repeat(4,auto);
     gap:20px
 }
+.exist
+{
+  display:grid;
+   grid-template-rows:repeat(3,auto);
+    gap:20px
+
+}
+.details
+{
+  display:grid;
+  grid-template-rows:repeat(3,auto);
+   gap:20px
+
+}
 .navbar {
   position: fixed;
   left: 0;

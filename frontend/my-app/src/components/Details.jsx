@@ -2,6 +2,7 @@ import React,{useState,useContext} from "react"
 import {useNavigate} from "react-router-dom"
 import {ShopContext} from "./AppContext"
 import axios from "axios"
+import "./All.css"
 
 function Details()
 {
@@ -42,7 +43,7 @@ function Details()
 
     return(
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="details">
             <label>Shop name</label>
             <input
             type="text"

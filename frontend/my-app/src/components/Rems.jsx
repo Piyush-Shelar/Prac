@@ -2,11 +2,14 @@ import React,{useState,useEffect,useContext} from "react"
 import Navbar from "./Navbar"
 import { StockContext,SalesContext } from "./AppContext"
 import axios from "axios"
+import { PieChart, Pie, Cell, Tooltip, Legend ,ResponsiveContainer,} from "recharts";
+
 
 function Rems()
 {
    const [initstock,setInitstock]=useState([])
    const [sales,setSales]=useState([])
+   const [view,setView]=useState("")
    
    //const {sales}=useContext(SalesContext)
    //const {initstock}=useContext(StockContext)
@@ -81,8 +84,28 @@ return(
     <div className="p-4">
       <Navbar/>
       <h2 className="text-xl font-bold mb-4">Remaining Stock</h2>
+
+       <div className="flex gap-2 mb-4">
+        <button
+          onClick={() => setView("list")}
+          className={`px-4 py-2 rounded-lg ${
+            view === "list" ? "bg-blue-500 text-white" : "bg-gray-200"
+          }`}
+        >
+          Default View
+        </button>
+        <button
+          onClick={() => setView("chart")}
+          className={`px-4 py-2 rounded-lg ${
+            view === "chart" ? "bg-blue-500 text-white" : "bg-gray-200"
+          }`}
+        >
+          Pie Chart
+        </button>
+      </div>
       
-      <div className="flex flex-col gap-4">
+      {view === "list" && (
+        <div className="flex flex-col gap-4">
 
 
     {sorted.map((value,index)=>(
@@ -98,16 +121,41 @@ return(
         </div>
     ))}
 
-     </div>
+     </div>)}
 
-     <div>
-      <button onClick={()=>setFilter("weekly")}>Weekly</button>
-      <button onClick={()=>setFilter("monthly")}>Monthly</button>
-      <button onClick={()=>setFilter("yearly")}>Yearly</button>
-    </div>
+      {view === "chart" && (
+             <div className="flex justify-center">
+               <PieChart width={400} height={400}>
+                 <Pie
+                   data={sorted}
+                   dataKey="quantity"
+                   nameKey="product"
+                   cx="50%"
+                   cy="50%"
+                   outerRadius={150}
+                   fill="#8884d8"
+                   label
+                 >
+                   {sorted.map((entry, index) => (
+                     <Cell
+                       key={`cell-${index}`}
+                       fill={
+                         ["#8884d8", "#82ca9d", "#ffc658", "#ff7f50", "#a4de6c"][
+                           index % 5
+                         ]
+                       }
+                     />
+                   ))}
+                 </Pie>
+                 <Tooltip />
+                 <Legend />
+               </PieChart>
+               </div>)}
 
+   
 
   </div>
+  
    
 
     
