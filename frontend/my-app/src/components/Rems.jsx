@@ -7,6 +7,7 @@ function Rems()
 {
    const [initstock,setInitstock]=useState([])
    const [sales,setSales]=useState([])
+   
    //const {sales}=useContext(SalesContext)
    //const {initstock}=useContext(StockContext)
     useEffect(()=>{
@@ -30,15 +31,38 @@ function Rems()
     console.log(err)
    })
   },[])
+
+
+  
+
+
+
+
+
    
    
   
     //const initial=initstock
     //const sales1=sales
 
+    const groupedSales = sales.reduce((acc, item) => {
+    const existing = acc.find((s) => s.product === item.product);
+    if (existing) {
+      existing.quantity += Number(item.quantity);
+      existing.totalCost += Number(item.totalCost);
+    } else {
+      acc.push({
+        product: item.product,
+        quantity: Number(item.quantity),
+        totalCost: Number(item.totalCost),
+      });
+    }
+    return acc;
+  }, []);
+
     const rem=initstock.map(item=>{
 
-        const sp=sales.find((s)=>s.product===item.product)
+        const sp=groupedSales.find((s)=>s.product===item.product)
         const sq=sp?sp.quantity:0
 
         return{
@@ -75,6 +99,13 @@ return(
     ))}
 
      </div>
+
+     <div>
+      <button onClick={()=>setFilter("weekly")}>Weekly</button>
+      <button onClick={()=>setFilter("monthly")}>Monthly</button>
+      <button onClick={()=>setFilter("yearly")}>Yearly</button>
+    </div>
+
 
   </div>
    

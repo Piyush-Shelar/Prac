@@ -28,7 +28,8 @@ const Sales = () => {
 
     const newSale = {
       product,
-      time,      quantity: Number(quantity),
+      time:new Date(formData.time),      
+      quantity: Number(quantity),
       costPerUnit: Number(costPerUnit),
       totalCost,
     };
@@ -52,6 +53,11 @@ const Sales = () => {
     console.log(sales)
   };
 
+  const sortedSales = [...sales].sort(
+  (a, b) => new Date(b.time) - new Date(a.time)
+);
+
+
   return (
     <div className="flex h-screen">
       <Navbar />
@@ -64,7 +70,7 @@ const Sales = () => {
             <thead className="bg-gray-200">
               <tr>
                 <th className="border p-2">Product</th>
-                <th className="border p-2">Time</th>
+                <th className="border p-2">Date</th>
                 <th className="border p-2">Quantity</th>
                 <th className="border p-2">Cost/Unit</th>
                 <th className="border p-2">Total Cost</th>
@@ -78,10 +84,13 @@ const Sales = () => {
                   </td>
                 </tr>
               ) : (
-                sales.map((s, i) => (
+                sortedSales.map((s, i) => (
                   <tr key={i} className="text-center">
                     <td className="border p-2">{s.product}</td>
-                    <td className="border p-2">{s.time}</td>
+                    <td className="border p-2">
+                            {new Date(s.time).toLocaleDateString()}
+                    </td>
+                    
                     <td className="border p-2">{s.quantity}</td>
                     <td className="border p-2">{s.costPerUnit}</td>
                     <td className="border p-2 font-semibold">{s.totalCost}</td>
@@ -105,7 +114,7 @@ const Sales = () => {
               className="border p-2 rounded"
             />
             <input
-              type="time"
+              type="date"
               name="time"
               value={formData.time}
               onChange={handleChange}
