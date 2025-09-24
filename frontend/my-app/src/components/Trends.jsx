@@ -9,6 +9,8 @@ function Trends()
 {
    const[sales,setSales]=useState([])
    const[filter,setFilter]=useState("all")
+   const[days,setDays]=useState("")
+   
   
    //const { sales} = useContext(SalesContext)
    useEffect(()=>{
@@ -25,27 +27,16 @@ function Trends()
 
 
 function filterByDate(saleDate) {
+   if (!days) return true;
   const today = new Date();
   const d = new Date(saleDate);
 
-  if (filter === "weekly") {
-    const oneWeekAgo = new Date();
-    oneWeekAgo.setDate(today.getDate() - 7);
-    return d >= oneWeekAgo && d <= today;
-  }
+  
+    const pastDate = new Date();
+    pastDate.setDate(today.getDate() - Number(days));
+    return d >= pastDate && d <= today;
 
-  if (filter === "monthly") {
-      const oneMonthAgo = new Date(today);
-      oneMonthAgo.setDate(today.getDate() - 31); 
-      return d >= oneMonthAgo && d <= today;
-    }
-
-   if (filter === "yearly") {
-      const oneYearAgo = new Date(today);
-      oneYearAgo.setDate(today.getDate() - 365); 
-      return d >= oneYearAgo && d <= today;
-    }
-  return true; 
+    
 }
 
 
@@ -100,11 +91,20 @@ function filterByDate(saleDate) {
     </div>
 
     <div>
-      <button onClick={()=>setFilter("weekly")}>Weekly</button>
-      <button onClick={()=>setFilter("monthly")}>Monthly</button>
-      <button onClick={()=>setFilter("yearly")}>Yearly</button>
-    </div>
+     <form >
+      <label>Enter number of days</label><input
+      type="number"
+      name="days"
+      value={days}
+      placeholder="enter number of days"
+      onChange={(e)=>{setDays(e.target.value)}}
+      />
+      
+     </form>
+     <button onClick={()=>{setDays("")}}>Clear</button>
+     
 
+  </div>
   </div>
    
    

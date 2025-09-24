@@ -11,6 +11,7 @@ function Analysis()
    const [sales,setSales]=useState([])
    const [initstock,setInitstock]=useState([])
     const[filter,setFilter]=useState("all")
+    const [days,setDays]=useState("")
 
    useEffect(()=>{axios.get("http://localhost:9000/sales")
    .then((res)=>{
@@ -36,24 +37,11 @@ function filterByDate(saleDate) {
   const today = new Date();
   const d = new Date(saleDate);
 
-  if (filter === "weekly") {
-    const oneWeekAgo = new Date();
-    oneWeekAgo.setDate(today.getDate() - 7);
-    return d >= oneWeekAgo && d <= today;
-  }
-
-  if (filter === "monthly") {
-      const oneMonthAgo = new Date(today);
-      oneMonthAgo.setDate(today.getDate() - 31); 
-      return d >= oneMonthAgo && d <= today;
-    }
-
-   if (filter === "yearly") {
-      const oneYearAgo = new Date(today);
-      oneYearAgo.setDate(today.getDate() - 365); 
-      return d >= oneYearAgo && d <= today;
-    }
-  return true; 
+  
+    const pastDate = new Date();
+    pastDate.setDate(today.getDate() - Number(days));
+    return d >= pastDate && d <= today;
+  
 }
 
 
@@ -132,9 +120,16 @@ const groupedSales = filteredSales.reduce((acc, item) => {
     <div><p><strong>Rs.</strong>{grossprofit}</p></div>
 
    <div>
-      <button onClick={()=>setFilter("weekly")}>Weekly</button>
-      <button onClick={()=>setFilter("monthly")}>Monthly</button>
-      <button onClick={()=>setFilter("yearly")}>Yearly</button>
+    <form>
+     <input
+     type="number"
+     name="days"
+     value={days}
+     placeholder="enter no.of days"
+     onChange={(e)=>{setDays(e.target.value)}}
+     />
+     <button onClick={()=>{setDays("")}}>Clear</button>
+     </form>  
     </div>
     </div>
    )
