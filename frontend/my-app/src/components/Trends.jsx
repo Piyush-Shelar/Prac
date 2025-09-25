@@ -65,14 +65,16 @@ function filterByDate(saleDate) {
 
    const trends =[...groupedSales].sort((a,b)=>b.quantity - a.quantity)
 
- return(
+ return (
+  <div className="flex flex-col h-screen">
+    <Navbar />
 
-    <div className="p-4">
-      <Navbar />
+    {/* Header area stays fixed */}
+    <div className="p-4 border-b bg-white">
       <h2 className="text-xl font-bold mb-4">Sales Trends</h2>
 
-      {/* Toggle buttons */}
-      <div className="flex gap-2 mb-4">
+      {/* Fixed buttons row */}
+      <div className="flex gap-2 mb-2">
         <button
           onClick={() => setView("list")}
           className={`px-4 py-2 rounded-lg ${
@@ -90,8 +92,10 @@ function filterByDate(saleDate) {
           Pie Chart
         </button>
       </div>
+    </div>
 
-      {/* Conditional Rendering */}
+    {/* Scrollable content */}
+    <div className="flex-1 overflow-y-auto p-4 bg-gray-50">
       {view === "list" && (
         <div className="flex flex-col gap-4">
           {trends.map((value, index) => (
@@ -99,15 +103,9 @@ function filterByDate(saleDate) {
               key={index}
               className="p-4 rounded-2xl shadow-md bg-white border flex flex-col"
             >
-              <p>
-                <strong>Product:</strong> {value.product}
-              </p>
-              <p>
-                <strong>Quantity:</strong> {value.quantity}
-              </p>
-              <p>
-                <strong>Cost:</strong> {value.totalCost}
-              </p>
+              <p><strong>Product:</strong> {value.product}</p>
+              <p><strong>Quantity:</strong> {value.quantity}</p>
+              <p><strong>Cost:</strong> {value.totalCost}</p>
             </div>
           ))}
         </div>
@@ -143,31 +141,29 @@ function filterByDate(saleDate) {
         </div>
       )}
 
+      {/* Filter form is also scrollable part */}
+      <div className="mt-4">
+        <form>
+          <label>Enter number of days</label>
+          <input
+            type="number"
+            name="days"
+            value={days}
+            placeholder="enter number of days"
+            onChange={(e) => setDays(e.target.value)}
+            className="ml-2 border p-1 rounded"
+          />
+        </form>
+        <button
+          onClick={() => setDays("")}
+          className="mt-2 px-4 py-2 bg-red-400 text-white rounded-lg"
+        >
+          Clear
+        </button>
+      </div>
+    </div>
+    </div>
+    )
 
-    <div>
-     <form >
-      <label>Enter number of days</label><input
-      type="number"
-      name="days"
-      value={days}
-      placeholder="enter number of days"
-      onChange={(e)=>{setDays(e.target.value)}}
-      />
-      
-     </form>
-     <button onClick={()=>{setDays("")}}>Clear</button>
-     
-
-  </div>
-  </div>
-   
-   
-   
-   )}
-
-
- 
-
-
-
-export default Trends
+}
+export default Trends;

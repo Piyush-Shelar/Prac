@@ -1,63 +1,72 @@
-import React,{useState,useEffect,useContext} from "react"
+ import React,{useState,useEffect,useContext} from "react" 
 import Navbar from "./Navbar"
-import Rems from "./Rems"
 import {StockContext} from "./AppContext"
 import axios from "axios"
-
+import "./All.css";   // ✅ Import CSS file
 
 function Inits(){
 
     const {initstock,setInitstock}=useContext(StockContext)
 
-   
-    const [init,setInit]=useState(
-        {
-            product:"",
-            quantity:"",
-            cost:""
-        }
-    )
-
-
-    function handleChange(e)
-    {
-         setInit({...init,[e.target.name]:e.target.value})
-    }
-
-    function handleSubmit(e)
-    {
-        
-        e.preventDefault();
-    if (!init.product || !init.quantity || !init.cost) return;
-
-    const total=Number(init.quantity)*Number(init.cost)
-
-    const newData={
-
-        product:init.product,
-        quantity:init.quantity,
-        total:total,
-        costPerUnit:init.cost,
-
-    }
-    axios.post("http://localhost:9000/initstock",newData)
-    .then((res)=>{
-
-      console.log(res)
-    })
-    .catch((err)=>{
-      console.log(err)
+    const [init,setInit]=useState({
+        product:"",
+        quantity:"",
+        cost:""
     })
 
-    setInitstock([newData,...initstock])
-    setInit({product:"",quantity:"",cost:""})
-
-
-
+    function handleChange(e) {
+        setInit({...init,[e.target.name]:e.target.value})
     }
 
+    function handleSubmit(e) {
+  e.preventDefault();
+  if (!init.product || !init.quantity || !init.cost) return;
 
-return (
+  const quantity = Number(init.quantity);
+  const cost = Number(init.cost);
+  const total = quantity * cost;
+
+  const newData = {
+    product: init.product.trim().toLowerCase(), // normalize product name
+    quantity,
+    total,
+    costPerUnit: cost,
+  };
+
+  // ✅ Check if product already exists
+  const existingIndex = initstock.findIndex(
+    (item) => item.product.toLowerCase() === newData.product
+  );
+
+  let updatedStock;
+  if (existingIndex !== -1) {
+    // Product already exists → update it
+    updatedStock = [...initstock];
+    updatedStock[existingIndex].quantity =
+      Number(updatedStock[existingIndex].quantity) + quantity;
+    updatedStock[existingIndex].total =
+      Number(updatedStock[existingIndex].total) + total;
+  } else {
+    // New product → add to stock
+    updatedStock = [newData, ...initstock];
+  }
+
+  // ✅ Save to DB (optional: update instead of insert for existing)
+  axios
+    .post("http://localhost:9000/initstock", newData)
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
+
+  // ✅ Update local state
+  setInitstock(updatedStock);
+
+  // ✅ Reset form
+  setInit({ product: "", quantity: "", cost: "" });
+}
+
+
+    return(
+       
     <div className="flex h-screen">
       <Navbar />
       <main className="main">
@@ -107,6 +116,8 @@ return (
       </main>
     </div>
   );
+
+
 }
 
-export default Inits
+export default Inits;
