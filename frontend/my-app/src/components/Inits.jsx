@@ -57,84 +57,56 @@ function Inits(){
     }
 
 
-return(
- 
+return (
     <div className="flex h-screen">
       <Navbar />
-      <main className="flex-1 p-6 bg-gray-100 overflow-y-auto">
+      <main className="main">
         <h1 className="text-2xl font-bold mb-4">Initial Stock Entry</h1>
 
-        <section className="grid grid-rows-2 gap-6 h-[85vh]"></section>
-    <table className="w-full bg-white shadow-md rounded-lg border border-gray-300 overflow-y-auto">
-        <thead className="bg-gray-200">
-            <tr>
-                <th className="border p-2">Product</th>
-                <th className="border p-2">Quantity</th>
-                <th className="border p-2">Cost</th>
-            </tr>
-        </thead>
-        <tbody>
-           
-            {initstock.length === 0 ? (
-              <tr>
-                <td colSpan="3" className="text-center p-3 text-gray-500">
-                  No stock added yet
-                </td>
-              </tr>
-            ) : (
-              initstock.map((item, index) => (
-                <tr key={index} className="text-center">
-                  <td className="border p-2">{item.product}</td>
-                  <td className="border p-2">{item.quantity}</td>
-                  <td className="border p-2">{item.total}</td>
+        <div className="entry-container">
+          <div className="entry-left">
+            <form onSubmit={handleSubmit}>
+              <label>Product Name</label>
+              <input type="text" name="product" value={init.product} onChange={handleChange} placeholder="Enter product name" />
+
+              <label>Quantity</label>
+              <input type="text" name="quantity" value={init.quantity} onChange={handleChange} placeholder="Enter quantity" />
+
+              <label>Cost</label>
+              <input type="number" name="cost" value={init.cost} onChange={handleChange} placeholder="Enter cost" />
+
+              <button type="submit">Add Product</button>
+            </form>
+          </div>
+
+          <div className="entry-right">
+            <table>
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Quantity</th>
+                  <th>Cost</th>
                 </tr>
-              ))
-            )}
-          
-        </tbody>
-    </table>
-
-    <form onSubmit={handleSubmit}  className="bg-white shadow-md rounded-lg p-4 grid grid-cols-3 gap-4">
-
-        <label>Product name</label>
-        <input
-        type="text"
-        name="product"
-        value={init.product}
-        placeholder="enter product name"
-        onChange={handleChange}
-        />
-        <label>Quantity</label>
-        <input
-        type="text"
-        name="quantity"
-        value={init.quantity}
-        placeholder="enter quantity"
-        onChange={handleChange}
-        />
-
-        <label>Cost</label>
-        <input
-        type="number"
-        name="cost"
-        value={init.cost}
-        placeholder="enter cost"
-        onChange={handleChange}
-        />
-
-        <button type="submit">Add product</button>
-
-
-   </form>
-       </main>
-
-       
+              </thead>
+              <tbody>
+                {initstock.length === 0 ? (
+                  <tr><td colSpan="3" className="text-center p-3 text-gray-500">No stock added yet</td></tr>
+                ) : (
+                  initstock.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.product}</td>
+                      <td>{item.quantity}</td>
+                      <td>{item.total}</td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
     </div>
-
-   
-)
-
-
+  );
 }
 
 export default Inits
