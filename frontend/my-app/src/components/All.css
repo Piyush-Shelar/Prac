@@ -262,5 +262,57 @@ footer {
   border-top: 1px solid var(--border);
 }
 
+/*.card{
+
+  background-color: #1DE9B6;
+  width: 500px;
+  height:10px;
+}*/
+
+.ccontent{
+
+  font-size:10px;
+  display:flex;
+  align-items:center;
+
+}
+.cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* space between cards */
+}
+
+.card {
+  background-color: #5ae9e4;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 16px;
+  /* adjust as needed */
+  display: flex;
+  align-items: center; /* vertical centering */
+  justify-content: center; /* horizontal centering */
+  text-align: center;
+  font-size: 5px;
+}
+
+.charts-container {
+  display: flex;
+  gap: 40px; /* space between charts */
+  flex-wrap: wrap; /* ensures charts wrap on smaller screens */
+}
+
+.chart-box {
+  flex: 1; /* each chart takes equal width */
+  min-width: 300px; /* prevent shrinking too much */
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+
+
 
 

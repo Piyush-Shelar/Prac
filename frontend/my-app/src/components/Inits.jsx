@@ -24,7 +24,7 @@ function Inits(){
 
   const quantity = Number(init.quantity);
   const cost = Number(init.cost);
-  const total = quantity * cost;
+  const total = Number(init.quantity) * cost;
 
   const newData = {
     product: init.product.trim().toLowerCase(), // normalize product name

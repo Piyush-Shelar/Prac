@@ -3,6 +3,7 @@ import Navbar from "./Navbar"
 import { StockContext,SalesContext } from "./AppContext"
 import axios from "axios"
 import { PieChart, Pie, Cell, Tooltip, Legend ,ResponsiveContainer,} from "recharts";
+import "./All.css"
 
 
 function Rems()
@@ -113,7 +114,7 @@ return(
 
        <div
             key={index}
-            className="p-4 rounded-2xl shadow-md bg-white border flex flex-col"
+            className="card"
           >
 
         <p><strong>Product:</strong>{value.product} <strong>Quantity:</strong>{value.quantity}</p>

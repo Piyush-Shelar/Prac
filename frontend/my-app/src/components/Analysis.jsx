@@ -3,6 +3,7 @@ import Navbar from "./Navbar"
 import {StockContext,SalesContext} from "./AppContext"
 import axios from "axios"
 import { PieChart, Pie, Cell, Tooltip, Legend ,ResponsiveContainer,} from "recharts";
+import "./All.css"
 
 function Analysis()
 {
@@ -148,60 +149,72 @@ const groupedSales = filteredSales.reduce((acc, item) => {
      
       {view === "list" && (
         <div className="flex flex-col gap-4">
-
-          <label>Amount Invested</label>
-       <div><p><strong>Rs.</strong>{invested}</p></div>
-    <label>Sales done</label>
-    <div><p><strong>Rs.</strong>{totalsales}</p></div>
-    <label>Margin Profit </label>
-    <div><p><strong>Rs.</strong>{marginprofit}</p></div>
-    <label>Gross Profit</label>
-    <div><p><strong>Rs.</strong>{grossprofit}</p></div>
+         <div className="card">
+          
+       <p><strong>Amount Invested Rs.</strong>{invested}</p></div>
+    <div className="card">
+          
+       <p><strong>Sales done Rs.</strong>{totalsales}</p></div>
+    <div className="card">
+          
+       <p><strong>Margin Profit Rs.</strong>{marginprofit}</p></div>
+    <div className="card">
+          
+       <p><strong>Gross Profit Rs.</strong>{grossprofit}</p></div>
 
     </div>)}
 
 
       {view === "chart" && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Invested vs Sales */}
-          <ResponsiveContainer width="100%" height={300}>
-            <PieChart>
-              <Pie
-                data={investedSalesData}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                outerRadius={120}
-                dataKey="value"
-              >
-                {investedSalesData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index]} />
-                ))}
-              </Pie>
-              <Tooltip />
-              <Legend />
-            </PieChart>
-          </ResponsiveContainer>
-          <ResponsiveContainer width="100%" height={300}>
-            <PieChart>
-              <Pie
-                data={profitData}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                outerRadius={120}
-                dataKey="value"
-              >
-                {profitData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index + 2]} />
-                ))}
-              </Pie>
-              <Tooltip />
-              <Legend />
-            </PieChart>
-          </ResponsiveContainer>
-        </div>
-      )}
+  <div className="charts-container">
+    {/* Invested vs Sales */}
+    <div className="chart-box">
+      <h3>Invested vs Sales</h3>
+      <ResponsiveContainer width="100%" height={300}>
+        <PieChart>
+          <Pie
+            data={investedSalesData}
+            cx="50%"
+            cy="50%"
+            labelLine={false}
+            outerRadius={120}
+            dataKey="value"
+          >
+            {investedSalesData.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index]} />
+            ))}
+          </Pie>
+          <Tooltip />
+          <Legend />
+        </PieChart>
+      </ResponsiveContainer>
+    </div>
+
+    {/* Profit Data */}
+    <div className="chart-box">
+      <h3>Margin vs Gross Profit</h3>
+      <ResponsiveContainer width="100%" height={300}>
+        <PieChart>
+          <Pie
+            data={profitData}
+            cx="50%"
+            cy="50%"
+            labelLine={false}
+            outerRadius={120}
+            dataKey="value"
+          >
+            {profitData.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index + 2]} />
+            ))}
+          </Pie>
+          <Tooltip />
+          <Legend />
+        </PieChart>
+      </ResponsiveContainer>
+    </div>
+  </div>
+)}
+
 
 
 

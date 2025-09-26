@@ -4,6 +4,7 @@ import Navbar from "./Navbar"
 import { SalesContext } from "./AppContext";
 import axios from "axios"
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
+import "./All.css"
 
 
 function Trends()
@@ -96,20 +97,24 @@ function filterByDate(saleDate) {
 
     {/* Scrollable content */}
     <div className="flex-1 overflow-y-auto p-4 bg-gray-50">
-      {view === "list" && (
-        <div className="flex flex-col gap-4">
-          {trends.map((value, index) => (
-            <div
-              key={index}
-              className="p-4 rounded-2xl shadow-md bg-white border flex flex-col"
-            >
-              <p><strong>Product:</strong> {value.product}</p>
-              <p><strong>Quantity:</strong> {value.quantity}</p>
-              <p><strong>Cost:</strong> {value.totalCost}</p>
-            </div>
-          ))}
-        </div>
-      )}
+     {view === "list" && ( 
+  <div className="flex flex-col gap-4">
+    {trends.map((value, index) => (
+      <div
+        key={index}
+        className="card"
+        
+      >
+        <p className="text-center">
+          <strong>Name: </strong> {value.product} &nbsp; | &nbsp;
+          <strong>   Quantity: </strong> {value.quantity} &nbsp; | &nbsp;
+          <strong>   Cost:</strong> {value.totalCost}
+        </p>
+      </div>
+    ))}
+  </div>
+)}
+
 
       {view === "chart" && (
         <div className="flex justify-center">

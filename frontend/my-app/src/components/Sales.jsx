@@ -69,7 +69,7 @@ const Sales = () => {
             <form onSubmit={handleSubmit}>
               <input type="text" name="product" value={formData.product} onChange={handleChange} placeholder="Product" />
               <input type="date" name="time" value={formData.time} onChange={handleChange} />
-              <input type="number" name="quantity" value={formData.quantity} onChange={handleChange} placeholder="Quantity" />
+              <input type="text" name="quantity" value={formData.quantity} onChange={handleChange} placeholder="Quantity" />
               <input type="number" name="costPerUnit" value={formData.costPerUnit} onChange={handleChange} placeholder="Cost per Unit" />
               <button type="submit">Add Sale</button>
             </form>
