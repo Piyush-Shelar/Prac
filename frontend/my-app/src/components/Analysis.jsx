@@ -1,12 +1,13 @@
 import React,{useState,useEffect,useContext} from "react"
 import Navbar from "./Navbar"
-import {StockContext,SalesContext} from "./AppContext"
+import {UserContext} from "./AppContext"
 import axios from "axios"
 import { PieChart, Pie, Cell, Tooltip, Legend ,ResponsiveContainer,} from "recharts";
 import "./All.css"
 
 function Analysis()
 {
+  const {user}=useContext(UserContext)
    //const {sales}=useContext(SalesContext)
    //const {initstock}=useContext(StockContext)
 
@@ -16,7 +17,7 @@ function Analysis()
     const [days,setDays]=useState("")
     const [view,setView]=useState("")
 
-   useEffect(()=>{axios.get("http://localhost:9000/sales")
+   useEffect(()=>{axios.get(`http://localhost:9000/sales?user=${user}`)
    .then((res)=>{
       console.log(res)
       setSales(res.data)
@@ -25,7 +26,7 @@ function Analysis()
       console.log(err)
    })
 
-   axios.get("http://localhost:9000/initstock")
+   axios.get(`http://localhost:9000/initstock?user=${user}`)
    .then((res)=>{
       console.log(res)
       setInitstock(res.data)

@@ -1,11 +1,12 @@
 import React,{useState,useContext} from "react"
 import {useNavigate} from "react-router-dom"
-import {ShopContext} from "./AppContext"
+import {UserContext,ShopContext} from "./AppContext"
 import axios from "axios"
 import "./All.css"
 
 function Details()
 {
+    const {user}=useContext(UserContext)
 
     const navigate=useNavigate()
     const[data,setData]=useState(
@@ -27,7 +28,9 @@ function Details()
     {
         e.preventDefault()
          setDetails([data,...details])
-         axios.post("http://localhost:9000/details",data)
+         const payload={...data,user:user}
+        
+         axios.post("http://localhost:9000/details",payload)
          .then((res)=>{
 
             console.log(res)

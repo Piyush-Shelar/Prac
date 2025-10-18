@@ -1,9 +1,12 @@
-import React,{useState} from "react"
+import React,{useState,useContext} from "react"
 import {useNavigate} from "react-router-dom"
 import "./All.css"
+import {UserContext} from "./AppContext"
+import axios from "axios"
 
 function Existing()
 {
+    const {user,setUser}=useContext(UserContext)
 
     const navigate=useNavigate()
 
@@ -20,8 +23,12 @@ function Existing()
           setData ((prev)=>({...prev,[name]:value}))
     }
 
-    function handleSubmit(e)
+     function handleSubmit(e)
     {    e.preventDefault()
+ 
+     
+        
+        setUser(data.username)
         navigate("/dashboard")
     }
 

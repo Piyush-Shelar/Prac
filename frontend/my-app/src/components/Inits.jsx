@@ -1,18 +1,35 @@
  import React,{useState,useEffect,useContext} from "react" 
 import Navbar from "./Navbar"
-import {StockContext} from "./AppContext"
+import {UserContext,StockContext} from "./AppContext"
 import axios from "axios"
 import "./All.css";   // ✅ Import CSS file
 
 function Inits(){
 
-    const {initstock,setInitstock}=useContext(StockContext)
+  const {initstock,setInitstock}=useContext(StockContext)
+  
+    const {user}=useContext(UserContext)
+    
 
     const [init,setInit]=useState({
         product:"",
         quantity:"",
         cost:""
     })
+   
+   
+    useEffect(()=>{
+      
+      if(!user) return
+      
+    axios.get(`http://localhost:9000/initstock?user=${user}`)
+    .then((res)=>{setInitstock(res.data)})
+    .catch((err)=>{console.log(err)})}
+    
+    
+    
+    ,[user,setInitstock])
+    
 
     function handleChange(e) {
         setInit({...init,[e.target.name]:e.target.value})
@@ -31,6 +48,7 @@ function Inits(){
     quantity,
     total,
     costPerUnit: cost,
+    user
   };
 
   // ✅ Check if product already exists
@@ -52,13 +70,15 @@ function Inits(){
   }
 
   // ✅ Save to DB (optional: update instead of insert for existing)
+
+  setInitstock(updatedStock)
   axios
     .post("http://localhost:9000/initstock", newData)
     .then((res) => console.log(res))
     .catch((err) => console.log(err));
 
   // ✅ Update local state
-  setInitstock(updatedStock);
+  
 
   // ✅ Reset form
   setInit({ product: "", quantity: "", cost: "" });
@@ -109,6 +129,8 @@ function Inits(){
                     </tr>
                   ))
                 )}
+                
+                
               </tbody>
             </table>
           </div>

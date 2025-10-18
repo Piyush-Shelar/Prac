@@ -2,18 +2,20 @@ import {useState,useEffect} from "react"
 import Navbar from "./Navbar";
 import {useContext} from "react"
 
-import {ShopContext} from "./AppContext"
+import {ShopContext,UserContext} from "./AppContext"
 import axios from "axios"
 
 
 const Dashboard = () => {
 
   const [details,setDetails]=useState([])
+  const {user}=useContext(UserContext)
+  console.log(user)
 
   //const {details}=useContext(ShopContext)
 
   useEffect(()=>
-  {axios.get("http://localhost:9000/details")
+  {axios.get(`http://localhost:9000/details?user=${user}`)
   .then((res)=>{
 
     console.log(res)

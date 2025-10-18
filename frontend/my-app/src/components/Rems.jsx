@@ -1,6 +1,6 @@
 import React,{useState,useEffect,useContext} from "react"
 import Navbar from "./Navbar"
-import { StockContext,SalesContext } from "./AppContext"
+import { UserContext } from "./AppContext"
 import axios from "axios"
 import { PieChart, Pie, Cell, Tooltip, Legend ,ResponsiveContainer,} from "recharts";
 import "./All.css"
@@ -8,6 +8,7 @@ import "./All.css"
 
 function Rems()
 {
+  const {user}=useContext(UserContext)
    const [initstock,setInitstock]=useState([])
    const [sales,setSales]=useState([])
    const [view,setView]=useState("")
@@ -15,7 +16,7 @@ function Rems()
    //const {sales}=useContext(SalesContext)
    //const {initstock}=useContext(StockContext)
     useEffect(()=>{
-    axios.get("http://localhost:9000/initstock")
+    axios.get(`http://localhost:9000/initstock?user=${user}`)
    .then((res)=>{
     console.log(res)
     setInitstock(res.data)
@@ -25,7 +26,7 @@ function Rems()
     console.log(err)
    })
 
-   axios.get("http://localhost:9000/sales")
+   axios.get(`http://localhost:9000/sales?user=${user}`)
    .then((res)=>{
     console.log(res)
     setSales(res.data)

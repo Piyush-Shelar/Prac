@@ -9,6 +9,7 @@ app.use(express.json())
 
 const url="mongodb+srv://piyushshelar10_db_user:OBUtEsHGLQwhTrHH@cluster0.luyhp7w.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
+
 app.post("/details",(req,res)=>{
 
     let client=new MongoClient(url)
@@ -68,13 +69,15 @@ app.post("/sales",(req,res)=>{
 })
 app.get("/sales",(req,res)=>{
 
+    const user=req.query.user
+
     let client=new MongoClient(url)
     client.connect()
 
     let db=client.db("sales")
     let collec=db.collection("salesdata")
 
-    collec.find().toArray()
+    collec.find({user}).toArray()
     .then((result)=>{
 
         res.send(result)
@@ -88,13 +91,14 @@ app.get("/sales",(req,res)=>{
 
 app.get("/initstock",(req,res)=>{
 
+    const user=req.query.user
     let client=new MongoClient(url)
     client.connect()
 
     let db=client.db("initstock")
     let collec=db.collection("initial")
 
-    collec.find().toArray()
+    collec.find({user}).toArray()
     .then((result)=>{
 
         res.send(result)
@@ -107,13 +111,14 @@ app.get("/initstock",(req,res)=>{
 
 app.get("/details",(req,res)=>{
 
+    const user=req.query.user
     let client=new MongoClient(url)
     client.connect()
 
     let db=client.db("info")
     let collec=db.collection("details")
 
-    collec.find().toArray()
+    collec.find({user}).toArray()
     .then((result)=>{
 
         res.send(result)
@@ -128,6 +133,6 @@ app.get("/details",(req,res)=>{
 
 
 
-
-
 app.listen(9000,()=>{console.log("Express is ready")})
+
+

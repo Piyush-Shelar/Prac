@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from "react"
 import {useContext} from "react"
 import Navbar from "./Navbar"
-import { SalesContext } from "./AppContext";
+import { UserContext } from "./AppContext";
 import axios from "axios"
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import "./All.css"
@@ -10,6 +10,7 @@ import "./All.css"
 function Trends()
 
 {
+  const {user}=useContext(UserContext)
    const[sales,setSales]=useState([])
    const[filter,setFilter]=useState("all")
    const[days,setDays]=useState("")
@@ -18,7 +19,7 @@ function Trends()
   
    //const { sales} = useContext(SalesContext)
    useEffect(()=>{
-      axios.get("http://localhost:9000/sales")
+      axios.get(`http://localhost:9000/sales?user=${user}`)
    .then((res)=>{
       console.log(res)
       setSales(res.data)

@@ -1,19 +1,34 @@
-import { useState,useContext } from "react";
+import { useState,useContext,useEffect } from "react";
 import Navbar from "./Navbar";
 import Context from "./Context"
 import Rems from "./Rems";
 import Trends from "./Trends";
-import { SalesContext } from "./AppContext";
+import { UserContext,SalesContext } from "./AppContext";
 import axios from "axios"
 
 const Sales = () => {
+  const {user}=useContext(UserContext)
   const {sales,setSales}=useContext(SalesContext)
+  
   const [formData, setFormData] = useState({
     product: "",
     time: "",
     quantity: "",
     costPerUnit: "",
   });
+
+ 
+   useEffect(()=>{
+  
+    
+    if(!user) return
+    
+    axios.get(`http://localhost:9000/sales?user=${user}`)
+    .then((res)=>{setSales(res.data)})
+    .catch((err)=>{console.log(err)})
+
+},[user,setSales])
+  
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -32,8 +47,10 @@ const Sales = () => {
       quantity: Number(quantity),
       costPerUnit: Number(costPerUnit),
       totalCost,
+      user
     };
-
+    
+   setSales([...sales,newSale])
     axios.post("http://localhost:9000/sales",newSale)
     .then((res)=>{
 
@@ -45,7 +62,7 @@ const Sales = () => {
     })
 
     // Prepend new entry so latest appears first
-    setSales([newSale, ...sales]);
+    
 
     // Reset form
     setFormData({ product: "", time: "", quantity: "", costPerUnit: "" });
@@ -100,6 +117,7 @@ const Sales = () => {
                     </tr>
                   ))
                 )}
+                
               </tbody>
             </table>
           </div>

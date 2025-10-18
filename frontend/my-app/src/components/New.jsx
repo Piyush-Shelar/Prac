@@ -1,9 +1,12 @@
-import React,{useState} from "react"
+import React,{useState,useContext} from "react"
 import {useNavigate} from "react-router-dom"
 import "./All.css"
+import {UserContext} from "./AppContext"
+import axios from "axios"
 
 function New()
 {
+    const {user,setUser}=useContext(UserContext)
     const navigate=useNavigate()
     const[data,setData]=useState(
         {
@@ -38,8 +41,18 @@ function New()
              }
 
           
-          else{
-        navigate("/details")}
+         
+          
+          else  {
+
+          
+           
+          
+            
+             setUser(data.username)
+        navigate("/details")
+      }
+       
     }
 
 return(
