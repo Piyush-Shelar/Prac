@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from "react"
 import {useContext} from "react"
 import Navbar from "./Navbar"
-import { UserContext } from "./AppContext";
+import { UserContext,TrendsContext } from "./AppContext";
 import axios from "axios"
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import "./All.css"
@@ -11,6 +11,7 @@ function Trends()
 
 {
   const {user}=useContext(UserContext)
+  const {trend,setTrends}=useContext(TrendsContext)
    const[sales,setSales]=useState([])
    const[filter,setFilter]=useState("all")
    const[days,setDays]=useState("")
@@ -66,6 +67,7 @@ function filterByDate(saleDate) {
   }, []);
 
    const trends =[...groupedSales].sort((a,b)=>b.quantity - a.quantity)
+   setTrends(trends)
 
  return (
   <div className="flex flex-col h-screen">

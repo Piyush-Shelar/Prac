@@ -1,6 +1,6 @@
 import React,{useState,useEffect,useContext} from "react"
 import Navbar from "./Navbar"
-import {UserContext} from "./AppContext"
+import {UserContext,InvestContext,SalesdContext,GrossContext,MarginContext} from "./AppContext"
 import axios from "axios"
 import { PieChart, Pie, Cell, Tooltip, Legend ,ResponsiveContainer,} from "recharts";
 import "./All.css"
@@ -8,6 +8,11 @@ import "./All.css"
 function Analysis()
 {
   const {user}=useContext(UserContext)
+  const {invest,setInvest}=useContext(InvestContext)
+  const {salesd,setSalesd}=useContext(SalesdContext)
+  const {gross,setGross}=useContext(GrossContext)
+  const {margin,setMargin}=useContext(MarginContext)
+
    //const {sales}=useContext(SalesContext)
    //const {initstock}=useContext(StockContext)
 
@@ -87,6 +92,7 @@ const groupedSales = filteredSales.reduce((acc, item) => {
 
 
 },0)
+setMargin(marginprofit)
 
   
 
@@ -107,8 +113,11 @@ const groupedSales = filteredSales.reduce((acc, item) => {
 
   
    const invested=initstock.reduce((acc,item)=>acc+item.total,0)
+   setInvest(invested)
    const totalsales=groupedSales1.reduce((acc,item)=>acc+item.totalCost,0)
+   setSalesd (totalsales)
    const grossprofit=totalsales-invested
+   setGross(totalsales)
 
 
    const investedSalesData = [

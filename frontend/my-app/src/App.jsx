@@ -9,6 +9,7 @@ import New from './components/New'
 import Rems from "./components/Rems"
 import Sales from "./components/Sales"
 import Trends from "./components/Trends" 
+import Pdf from "./components/Pdf"
 import './App.css'
 import {BrowserRouter,Routes,Router,Route} from "react-router-dom"
 import AppProvider  from "./components/AppContext";
@@ -31,6 +32,7 @@ function App() {
           <Route path="/trends" element={<Trends/>}/>
           <Route path="/analysis" element={<Analysis/>}/>
           <Route path="/rems" element={<Rems/>}/>
+          <Route path="/pdf" element={<Pdf/>}/>
         </Routes>
 
       </BrowserRouter>

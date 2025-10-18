@@ -1,6 +1,6 @@
 import React,{useState,useEffect,useContext} from "react"
 import Navbar from "./Navbar"
-import { UserContext } from "./AppContext"
+import { UserContext,RemContext } from "./AppContext"
 import axios from "axios"
 import { PieChart, Pie, Cell, Tooltip, Legend ,ResponsiveContainer,} from "recharts";
 import "./All.css"
@@ -9,6 +9,7 @@ import "./All.css"
 function Rems()
 {
   const {user}=useContext(UserContext)
+  const {rems,setRems}=useContext(RemContext)
    const [initstock,setInitstock]=useState([])
    const [sales,setSales]=useState([])
    const [view,setView]=useState("")
@@ -78,6 +79,7 @@ function Rems()
     })
 
     const sorted=rem.sort((a,b)=>a.quantity - b.quantity)
+    setRems(sorted)
 
 
 

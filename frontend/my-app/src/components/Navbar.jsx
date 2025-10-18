@@ -16,6 +16,7 @@ function Navbar()
       <Link to="/sales">Sales</Link>
       <Link to="/trends">Trends</Link>
       <Link to="/analysis">Analysis</Link>
+      <Link to="/pdf">Pdf</Link>
     </nav>
 
 
