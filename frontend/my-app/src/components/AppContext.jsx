@@ -25,7 +25,7 @@ function AppProvider({children}){
   const [salesd,setSalesd]=useState([])
   const [gross,setGross]=useState([])
   const [margin,setMargin]=useState([])
-  const [trend,setTrends]=useState([])
+  const [trends,setTrends]=useState([])
   const [rems,setRems]=useState([])
 
   return (
@@ -37,7 +37,7 @@ function AppProvider({children}){
               <SalesdContext.Provider value={{salesd,setSalesd}}>
                 <GrossContext.Provider value={{gross,setGross}}>
                   <MarginContext.Provider value={{margin,setMargin}}>
-                    <TrendsContext.Provider value={{trend,setTrends}}>
+                    <TrendsContext.Provider value={{trends,setTrends}}>
                       <RemContext.Provider value={{rems,setRems}}>
                   
       {children}

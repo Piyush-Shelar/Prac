@@ -51,6 +51,8 @@ function Rems()
     //const initial=initstock
     //const sales1=sales
 
+      useEffect(() => {
+
     const groupedSales = sales.reduce((acc, item) => {
     const existing = acc.find((s) => s.product === item.product);
     if (existing) {
@@ -80,6 +82,8 @@ function Rems()
 
     const sorted=rem.sort((a,b)=>a.quantity - b.quantity)
     setRems(sorted)
+
+    }, [initstock, sales, setRems]);
 
 
 
@@ -112,7 +116,7 @@ return(
         <div className="flex flex-col gap-4">
 
 
-    {sorted.map((value,index)=>(
+    {rems.map((value,index)=>(
 
 
        <div
@@ -131,7 +135,7 @@ return(
              <div className="flex justify-center">
                <PieChart width={400} height={400}>
                  <Pie
-                   data={sorted}
+                   data={rems}
                    dataKey="quantity"
                    nameKey="product"
                    cx="50%"
@@ -140,7 +144,7 @@ return(
                    fill="#8884d8"
                    label
                  >
-                   {sorted.map((entry, index) => (
+                   {rems.map((entry, index) => (
                      <Cell
                        key={`cell-${index}`}
                        fill={

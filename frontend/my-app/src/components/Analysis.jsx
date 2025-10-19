@@ -80,20 +80,7 @@ const groupedSales = filteredSales.reduce((acc, item) => {
 
 
 
-   const marginprofit=groupedSales.reduce((acc,item)=>{
-
-
-      const item2=initstock.find((s)=>s.product===item.product)
-      if (!item2) return acc
-
-      const item1=(item.costPerUnit-item2.costPerUnit)*item.quantity
-
-      return acc+item1
-
-
-},0)
-setMargin(marginprofit)
-
+   
   
 
   const groupedSales1 = filteredSales.reduce((acc, item) => {
@@ -111,23 +98,40 @@ setMargin(marginprofit)
     return acc;
   }, []);
 
+useEffect(()=>{
+  const marginprofit=groupedSales.reduce((acc,item)=>{
+
+
+      const item2=initstock.find((s)=>s.product===item.product)
+      if (!item2) return acc
+
+      const item1=(item.costPerUnit-item2.costPerUnit)*item.quantity
+
+      return acc+item1
+
+
+},0)
+    setMargin(marginprofit)
+
+
   
    const invested=initstock.reduce((acc,item)=>acc+item.total,0)
    setInvest(invested)
    const totalsales=groupedSales1.reduce((acc,item)=>acc+item.totalCost,0)
    setSalesd (totalsales)
    const grossprofit=totalsales-invested
-   setGross(totalsales)
+   setGross(grossprofit)
+},[sales,initstock])
 
 
    const investedSalesData = [
-    { name: "Invested", value: invested },
-    { name: "Sales", value: totalsales },
+    { name: "Invested", value: invest },
+    { name: "Sales", value: salesd },
   ];
 
   const profitData = [
-    { name: "Margin Profit", value: marginprofit },
-    { name: "Gross Profit", value: grossprofit },
+    { name: "Margin Profit", value: margin },
+    { name: "Gross Profit", value: gross },
   ];
 
   const COLORS = ["#0088FE", "#FF8042", "#00C49F", "#FFBB28"];
@@ -161,16 +165,16 @@ setMargin(marginprofit)
         <div className="flex flex-col gap-4">
          <div className="card">
           
-       <p><strong>Amount Invested Rs.</strong>{invested}</p></div>
+       <p><strong>Amount Invested Rs.</strong>{invest}</p></div>
     <div className="card">
           
-       <p><strong>Sales done Rs.</strong>{totalsales}</p></div>
+       <p><strong>Sales done Rs.</strong>{salesd}</p></div>
     <div className="card">
           
-       <p><strong>Margin Profit Rs.</strong>{marginprofit}</p></div>
+       <p><strong>Margin Profit Rs.</strong>{margin}</p></div>
     <div className="card">
           
-       <p><strong>Gross Profit Rs.</strong>{grossprofit}</p></div>
+       <p><strong>Gross Profit Rs.</strong>{gross}</p></div>
 
     </div>)}
 

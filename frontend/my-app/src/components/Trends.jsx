@@ -11,7 +11,7 @@ function Trends()
 
 {
   const {user}=useContext(UserContext)
-  const {trend,setTrends}=useContext(TrendsContext)
+  const {trends,setTrends}=useContext(TrendsContext)
    const[sales,setSales]=useState([])
    const[filter,setFilter]=useState("all")
    const[days,setDays]=useState("")
@@ -46,7 +46,7 @@ function filterByDate(saleDate) {
 }
 
 
-
+ useEffect(()=>{
 
    const filteredSales = sales.filter(s => filterByDate(s.time));
 
@@ -66,8 +66,11 @@ function filterByDate(saleDate) {
     return acc;
   }, []);
 
-   const trends =[...groupedSales].sort((a,b)=>b.quantity - a.quantity)
-   setTrends(trends)
+   const trend =[...groupedSales].sort((a,b)=>b.quantity - a.quantity)
+   setTrends(trend)
+
+
+   },[sales,days])
 
  return (
   <div className="flex flex-col h-screen">
