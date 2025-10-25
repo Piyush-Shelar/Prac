@@ -33,7 +33,8 @@ function Existing()
     }
 
    return(
-
+<div className="newbg">
+<div className="new-form-container">
     <form onSubmit={handleSubmit} className="exist">
         <label>Username</label>
         <input
@@ -54,6 +55,8 @@ function Existing()
 
         <button  type="submit">Submit</button>
     </form>
+    </div>
+    </div>
 
 
 

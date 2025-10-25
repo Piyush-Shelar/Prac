@@ -10,7 +10,8 @@ import Rems from "./components/Rems"
 import Sales from "./components/Sales"
 import Trends from "./components/Trends" 
 import Pdf from "./components/Pdf"
-import './App.css'
+import "./App.css"
+
 import {BrowserRouter,Routes,Router,Route} from "react-router-dom"
 import AppProvider  from "./components/AppContext";
 

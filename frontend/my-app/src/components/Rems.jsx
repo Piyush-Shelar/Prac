@@ -76,7 +76,7 @@ function Rems()
         return{
 
             product:item.product,
-            quantity:item.quantity-sq
+            quantity:Number(item.quantity)-sq
         }
     })
 

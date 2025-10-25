@@ -11,11 +11,13 @@ function Login()
     
 
     return(
-
+      <div className="loginbg">
+      
         <form className="login">
             <button type="button" onClick={()=>navigate("/new")} style={{backgroundColor:"yellow"}}>New User</button>
             <button type="button" onClick={()=>navigate("/existing")} style={{backgroundColor:"lightgreen"}}>Existing User</button>
         </form>
+        </div>
     )
 
 

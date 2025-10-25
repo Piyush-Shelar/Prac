@@ -56,7 +56,8 @@ function New()
     }
 
 return(
-
+<div className="newbg">
+  <div className="new-form-container">
     <form onSubmit={handleSubmit} className="new">
         <label>Username</label>
         <input 
@@ -84,8 +85,9 @@ return(
         />
         <button type="submit" style={{backgroundColor:"lightgreen"}}>Submit</button>
     </form>
+    </div>
 
-
+</div>
 
 )
 

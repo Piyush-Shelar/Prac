@@ -45,7 +45,8 @@ function Details()
 
 
     return(
-
+    <div className="newbg" >
+   <div className="new-form-container">
         <form onSubmit={handleSubmit} className="details">
             <label>Shop name</label>
             <input
@@ -66,6 +67,8 @@ function Details()
 
             <button type="submit">Submit</button>
         </form>
+        </div>
+        </div>
     )
 
 

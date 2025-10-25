@@ -2,13 +2,49 @@
 
     display:grid;
     grid-template-rows:repeat(2,auto);
-    gap:100px
+    gap:100px;
+    
+
 }
+
+
+  .loginbg {
+  background-image: url("/images/images.jpg"); /* note: no ./public */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;       /* full viewport height */
+  width: 100vw;        /* full viewport width */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
 .new
 {
     display:grid;
     grid-template-rows:repeat(4,auto);
     gap:20px
+}
+.newbg{
+
+  background-image: url("/images/images (1).jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+   height: 100vh;       /* full viewport height */
+  width: 100vw;        /* full viewport width */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.new-form-container {
+  background-color: rgba(255, 255, 255); /* translucent white */
+  padding: 50px;
+  border-radius: 15px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
 }
 .exist
 {
