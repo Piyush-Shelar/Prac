@@ -231,21 +231,10 @@ useEffect(()=>{
 
 
 
-
-   <div>
-    <form>
-     <input
-     type="number"
-     name="days"
-     value={days}
-     placeholder="enter no.of days"
-     onChange={(e)=>{setDays(e.target.value)}}
-     />
-     <button onClick={()=>{setDays("")}}>Clear</button>
-     </form>  
-    </div>
-    </div>
+</div>
+   
    )
+
 }
 
 export default Analysis;

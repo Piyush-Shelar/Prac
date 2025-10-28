@@ -23,9 +23,9 @@ function Pdf() {
   function addWrappedText(doc, text, x, y, maxWidth, lineHeight) {
     const lines = doc.splitTextToSize(text, maxWidth);
     lines.forEach((line, i) => {
-      if (y > 280) { // near bottom of page
+      if (y > 280) { 
         doc.addPage();
-        y = 20; // reset to top
+        y = 20; 
       }
       doc.text(line, x, y);
       y += lineHeight;
