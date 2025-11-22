@@ -16,6 +16,7 @@ function Details()
         }
     )
     const {details,setDetails}=useContext(ShopContext)
+
     
 
     function handleChange(e)
