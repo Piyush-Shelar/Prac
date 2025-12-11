@@ -11,6 +11,7 @@ export const GrossContext=createContext()
 export const MarginContext=createContext();
 export const TrendsContext=createContext();
 export const RemContext=createContext();
+export const DaysContext=createContext()
 
 
 function AppProvider({children}){
