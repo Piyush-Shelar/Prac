@@ -19,6 +19,7 @@ function Navbar()
       
       <Link to="/pdf">Pdf</Link>
       <Link to="/behaviour">Behaviour</Link>
+      <Link to="/prediction">Prediction</Link>
     </nav>
 
 

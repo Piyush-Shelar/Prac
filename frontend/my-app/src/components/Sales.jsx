@@ -51,7 +51,7 @@ const Sales = () => {
     };
     
    setSales([...sales,newSale])
-    axios.post("http://localhost:9000/sales",newSale)
+    axios.post("http://localhost:9000/sales",{user:user,sale:newSale})
     .then((res)=>{
 
       console.log(res)
@@ -122,6 +122,7 @@ const Sales = () => {
             </table>
           </div>
         </div>
+       
       </main>
     </div>
   );

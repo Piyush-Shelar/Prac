@@ -12,6 +12,7 @@ import Trends from "./components/Trends"
 import Pdf from "./components/Pdf"
 import "./App.css"
 import Behaviour from "./components/Behaviour"
+import Prediction from "./components/Prediction"
 
 import {BrowserRouter,Routes,Router,Route} from "react-router-dom"
 import AppProvider  from "./components/AppContext";
@@ -36,6 +37,7 @@ function App() {
           <Route path="/rems" element={<Rems/>}/>
           <Route path="/pdf" element={<Pdf/>}/>
           <Route path="/behaviour" element={<Behaviour/>}/>
+          <Route path="/prediction" element={<Prediction/>}/>
         </Routes>
 
       </BrowserRouter>

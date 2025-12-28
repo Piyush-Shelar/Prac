@@ -12,6 +12,7 @@ function Analysis()
   const {salesd,setSalesd}=useContext(SalesdContext)
   const {gross,setGross}=useContext(GrossContext)
   const {margin,setMargin}=useContext(MarginContext)
+  const [days1,setDays1]=useState("")
 
    //const {sales}=useContext(SalesContext)
    //const {initstock}=useContext(StockContext)
@@ -136,6 +137,18 @@ useEffect(()=>{
 
   const COLORS = ["#0088FE", "#FF8042", "#00C49F", "#FFBB28"];
 
+  function handlepred()
+  {
+   
+   axios.post("http://localhost:5000/predict", {
+    days: days1,
+    user: user
+})
+  .then((res)=>{console.log(res.data)})
+  .catch((err)=>{console.log(err)})
+
+  }
+
    
 
    return(
@@ -175,6 +188,18 @@ useEffect(()=>{
     <div className="card">
           
        <p><strong>Gross Profit Rs.</strong>{gross}</p></div>
+     
+       <input
+       type="number"
+       placeholder="enter days"
+       value={days1}
+       name="days1"
+       onChange={(e)=>setDays1(e.target.value)}
+       />
+
+       <button onClick={handlepred}>prediction</button>
+       <p id="value"></p>
+      
 
     </div>)}
 
